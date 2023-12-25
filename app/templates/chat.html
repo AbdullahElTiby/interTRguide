@@ -1,0 +1,11 @@
+<!-- chat.html -->
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="message" placeholder="Enter Message">
+    <input type="text" name="state" value="None" style="display: none;"> <!-- Hidden field for 'state' -->
+    <input type="radio" name="mode" value="Query Docs"> Query Docs
+    <input type="radio" name="mode" value="Search in Docs"> Search in Docs
+    <input type="radio" name="mode" value="LLM Chat"> LLM Chat
+    <input type="text" name="file_url" placeholder="Enter File URL">
+    <button type="submit">Chat</button>
+</form>

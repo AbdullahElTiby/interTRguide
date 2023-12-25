@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="user_input">
+        <input type="submit" value="Send">
+    </form>
+    {% if bot_response %}
+        <p>Bot's response: {{ bot_response }}</p>
+    {% endif %}
+</body>
+</html>

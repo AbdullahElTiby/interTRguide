@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Processing</title>
+</head>
+<body>
+    <h1>Voice Processing</h1>
+    <form id="voiceForm" action="{% url 'voice_processing' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="audio" accept="audio/wav">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="recognizedText"></div>
+    <div id="responseText"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#voiceForm').submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#recognizedText').text(response.recognized_text);
+                        $('#responseText').text(response.response_text);
+                        // Play the audio response
+                        var audio = new Audio('response_audio.wav');
+                        audio.play();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
